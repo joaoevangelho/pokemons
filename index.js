@@ -8,14 +8,18 @@ console.log(pokedex.pokemon('pikachu'));
 let i = 0;
 
 const server = http.createServer((request, response) => {
+    i++;
     response.writeHead(200, {
         "Content-Type": "text/html",
     });
 
-    switch (request.url) {
-        case '/pikachu':
-            response.write(`<img src= "${pokedex.pokemon('pikachu').sprites.animated}"/>`);
-            response.write(`${pokedex.pokemon('pikachu').name}`);
+    let pokemon = request.url;
+    pokemon = pokemon.replace('/', '');
+
+    switch (pokemon) {
+        case pokemon:
+            response.write(`<img src= "${pokedex.pokemon(pokemon).sprites.animated}"/>`);
+            //response.write(`${pokedex.pokemon(pokemon).name}`);
             break;
         default:
             response.statusCode = 404;
